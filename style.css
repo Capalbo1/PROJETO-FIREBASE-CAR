@@ -1,0 +1,127 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #c70808;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.logo {
+    max-width: 100px;
+    vertical-align: middle;
+}
+
+h1 {
+    margin: 0;
+    padding: 10px;
+    text-shadow: -7px 4px 13px #292929;
+}
+
+main {
+    padding: 20px;
+}
+
+.form-section, .list-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.input-field {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.btn-submit {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-submit:hover {
+    background-color: #d83108;
+}
+
+.clients-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.clients-table th, .clients-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.clients-table th {
+    background-color: #f2f2f2;
+}
+
+.clients-table .editar, .clients-table .apagar {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    margin: 0 5px; /* Espaço entre os botões */
+}
+
+.clients-table .editar {
+    background-color: #f0ad4e; /* Cor padrão para o botão de editar */
+}
+
+.clients-table .editar:hover {
+    background-color: #ec971f; /* Cor de hover para o botão de editar */
+}
+
+.clients-table .apagar {
+    background-color: #d9534f; /* Cor padrão para o botão de apagar */
+}
+
+.clients-table .apagar:hover {
+    background-color: #ee261f; /* Cor de hover para o botão de apagar */
+}
