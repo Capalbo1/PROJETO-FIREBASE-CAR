@@ -32,29 +32,32 @@ function limpaInputs() {
     inputNome.focus();
 }
 
-// Adiciona cliente ao Firebase
+// Adiciona cliente com ID sequencial
 function criaClienteFirebase(cliente) {
     const clientesRef = database.ref('clientes'); // Referência ao nó "clientes"
-    const novoCliente = clientesRef.push(); // Gera um ID único
-    novoCliente.set(cliente); // Salva os dados
-}
 
-// Atualiza cliente no Firebase
-function atualizaClienteFirebase(id, clienteAtualizado) {
-    const clienteRef = database.ref(`clientes/${id}`); // Referência ao cliente pelo ID
-    clienteRef.update(clienteAtualizado); // Atualiza os dados
-}
+    // Busca o maior ID existente
+    clientesRef.orderByKey().limitToLast(1).once('value', (snapshot) => {
+        let novoId = 1; // Valor inicial caso o banco esteja vazio
 
-// Remove cliente do Firebase
-function apagaClienteFirebase(id) {
-    const clienteRef = database.ref(`clientes/${id}`);
-    clienteRef.remove(); // Remove do banco de dados
+        snapshot.forEach((childSnapshot) => {
+            const maiorIdAtual = parseInt(childSnapshot.key, 10); // Converte para número
+            if (!isNaN(maiorIdAtual)) {
+                novoId = maiorIdAtual + 1; // Incrementa o ID
+            }
+        });
+
+        // Salva o cliente com o novo ID
+        clientesRef.child(novoId).set(cliente);
+        alert(`Cliente adicionado com sucesso! ID: ${novoId}`);
+        limpaInputs();
+    });
 }
 
 // Renderiza cliente na tabela
 function criaTarefa(nome, carro, placa, quilometragem, observacao, id) {
     const tr = document.createElement('tr');
-    tr.dataset.id = id;
+    tr.dataset.id = id; // Define o ID no dataset da linha
     tr.innerHTML = `
         <td>${id}</td>
         <td>${nome}</td>
@@ -73,11 +76,11 @@ function criaTarefa(nome, carro, placa, quilometragem, observacao, id) {
 // Carrega clientes do Firebase
 function carregaClientesFirebase() {
     const clientesRef = database.ref('clientes');
-    clientesRef.on('value', (snapshot) => {
+    clientesRef.orderByKey().on('value', (snapshot) => {
         tarefas.innerHTML = ''; // Limpa a tabela
         snapshot.forEach((childSnapshot) => {
             const cliente = childSnapshot.val();
-            const id = childSnapshot.key; // Obtém o ID único do cliente
+            const id = childSnapshot.key; // O ID agora será sequencial
             criaTarefa(cliente.nome, cliente.carro, cliente.placa, cliente.quilometragem, cliente.observacao, id);
         });
     });
@@ -99,8 +102,6 @@ btnTarefa.addEventListener('click', function () {
     };
 
     criaClienteFirebase(cliente); // Salva no Firebase
-    alert("Cliente adicionado com sucesso!");
-    limpaInputs();
 });
 
 // Eventos de edição e remoção
@@ -124,6 +125,12 @@ document.addEventListener('click', function (e) {
         }
     }
 });
+
+// Remove cliente do Firebase
+function apagaClienteFirebase(id) {
+    const clienteRef = database.ref(`clientes/${id}`);
+    clienteRef.remove(); // Remove do banco de dados
+}
 
 // Carrega clientes ao abrir a página
 carregaClientesFirebase();

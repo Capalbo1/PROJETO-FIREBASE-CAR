@@ -6,21 +6,40 @@ body {
 }
 
 header {
-    background-color: #c70808;
-    color: white;
-    text-align: center;
-    padding: 20px;
+    background-image: url('cars.jpg'); /* Substitua pelo caminho da sua imagem */
+    background-size: cover; /* Faz a imagem cobrir todo o header */
+    background-position: center; /* Centraliza a imagem */
+    height: 300px; /* Ajuste a altura conforme necessário */
+    display: flex; /* Alinha o conteúdo do header */
+    flex-direction: column; /* Mantém o texto abaixo */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    position: relative;
+    color: white; /* Deixa o texto branco para contraste */
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Fundo preto com 50% de transparência */
+    z-index: 1; /* Fica atrás do conteúdo */
 }
 
 .logo {
-    max-width: 100px;
+    max-width: 180px;
     vertical-align: middle;
+    z-index: 2; /* Mantém o texto acima da transparência */
 }
 
-h1 {
-    margin: 0;
-    padding: 10px;
-    text-shadow: -7px 4px 13px #292929;
+header h1 {
+    position: relative;
+    z-index: 2; /* Mantém o texto acima da transparência */
+    font-size: 2rem; /* Ajuste o tamanho do texto */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Adiciona sombra no texto */
 }
 
 main {
@@ -45,24 +64,56 @@ form {
     flex-direction: column;
 }
 
-table {
+/* Configuração padrão da tabela */
+.clients-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
 }
 
-table, th, td {
+.clients-table th, .clients-table td {
+    padding: 8px;
+    text-align: left;
     border: 1px solid #ddd;
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
+/* Estilos para dispositivos menores */
+@media (max-width: 768px) {
+    .clients-table, .clients-table thead, .clients-table tbody, .clients-table th, .clients-table td, .clients-table tr {
+        display: block; /* Transformar tudo em bloco */
+    }
+
+    /* Remove o cabeçalho da tabela */
+    .clients-table thead {
+        display: none;
+    }
+
+    /* Estiliza cada linha de dados */
+    .clients-table tr {
+        margin-bottom: 15px; /* Espaçamento entre os registros */
+        border-bottom: 1px solid #ddd; /* Adiciona uma separação visual */
+        border: 2px solid #333; /* Borda escura ao redor do bloco */
+    }
+
+    /* Exibe os rótulos antes dos valores */
+    .clients-table td {
+        text-align: left;
+        padding-left: 50%; /* Garante espaço para os rótulos */
+        position: relative;
+    }
+
+    /* Estilos para os rótulos das colunas */
+    .clients-table td::before {
+        content: attr(data-label); /* Insere o nome da coluna como rótulo */
+        position: absolute;
+        left: 0;
+        width: 45%; /* Espaço ocupado pelo rótulo */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: bold;
+    }
 }
 
-th {
-    background-color: #f2f2f2;
-}
 
 .input-field {
     width: 100%;
@@ -124,4 +175,7 @@ th {
 
 .clients-table .apagar:hover {
     background-color: #ee261f; /* Cor de hover para o botão de apagar */
+}
+div.conatiner{
+    overflow-x: auto;
 }

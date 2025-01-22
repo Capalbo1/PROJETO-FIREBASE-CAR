@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <img src="LOGO.png" alt="Logo da Empresa" class="logo">
+        <img src="logo2.png" alt="Logo da Empresa" class="logo">
         <h1>OFICINA MECÂNICA SOARES</h1>
     </header>
     <main>
@@ -43,31 +43,55 @@
         </section>
         <section class="list-section">
             <h2>Clientes Cadastrados</h2>
-            <table class="clients-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Carro</th>
-                        <th>Placa</th>
-                        <th>Quilometragem</th>
-                        <th>Observação</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Os dados cadastrados serão inseridos aqui -->
-                </tbody>
-            </table>
+            <div class="container">
+                <table class="clients-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Carro</th>
+                            <th>Placa</th>
+                            <th>Quilometragem</th>
+                            <th>Observação</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="ID">1</td>
+                            <td data-label="Nome">João Silva</td>
+                            <td data-label="Carro">Fiat Uno</td>
+                            <td data-label="Placa">ABC-1234</td>
+                            <td data-label="Quilometragem">120000</td>
+                            <td data-label="Observação">Revisão completa</td>
+                            <td data-label="Ação">
+                                <button class="editar">Editar</button>
+                                <button class="apagar">Apagar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="ID">2</td>
+                            <td data-label="Nome">Maria Souza</td>
+                            <td data-label="Carro">Toyota Corolla</td>
+                            <td data-label="Placa">XYZ-5678</td>
+                            <td data-label="Quilometragem">80000</td>
+                            <td data-label="Observação">Troca de óleo</td>
+                            <td data-label="Ação">
+                                <button class="editar">Editar</button>
+                                <button class="apagar">Apagar</button>
+                            </td>
+                        </tr>
+                        <!-- Adicione mais linhas aqui -->
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
- <!-- Firebase App (Core SDK) -->
-<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-<!-- Firebase Database -->
-<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
-
-<!-- Script principal -->
-<script src="script.js"></script>
-
+    <!-- Firebase App (Core SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+    <!-- Script principal -->
+    <script src="script.js"></script>
 </body>
 </html>
