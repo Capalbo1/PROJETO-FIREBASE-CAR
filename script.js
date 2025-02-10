@@ -13,6 +13,15 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
+// Teste de conexão ao Firebase
+database.ref('.info/connected').on('value', (snapshot) => {
+    if (snapshot.val() === true) {
+        console.log("Conectado ao Firebase");
+    } else {
+        console.error("Não foi possível conectar ao Firebase");
+    }
+});
+
 // Seleciona elementos do DOM
 const inputNome = document.querySelector('#nome');
 const inputCarro = document.querySelector('#carro');
@@ -35,6 +44,7 @@ function limpaInputs() {
 // Adiciona cliente com ID sequencial
 function criaClienteFirebase(cliente) {
     const clientesRef = database.ref('clientes'); // Referência ao nó "clientes"
+<<<<<<< Updated upstream
 
     // Busca o maior ID existente
     clientesRef.orderByKey().limitToLast(1).once('value', (snapshot) => {
@@ -51,6 +61,33 @@ function criaClienteFirebase(cliente) {
         clientesRef.child(novoId).set(cliente);
         alert(`Cliente adicionado com sucesso! ID: ${novoId}`);
         limpaInputs();
+=======
+    const novoCliente = clientesRef.push(); // Gera um ID único
+    novoCliente.set(cliente).then(() => {
+        console.log("Cliente adicionado com sucesso:", cliente);
+    }).catch((error) => {
+        console.error("Erro ao adicionar cliente:", error);
+    });
+}
+
+// Atualiza cliente no Firebase
+function atualizaClienteFirebase(id, clienteAtualizado) {
+    const clienteRef = database.ref(`clientes/${id}`); // Referência ao cliente pelo ID
+    clienteRef.update(clienteAtualizado).then(() => {
+        console.log("Cliente atualizado:", clienteAtualizado);
+    }).catch((error) => {
+        console.error("Erro ao atualizar cliente:", error);
+    });
+}
+
+// Remove cliente do Firebase
+function apagaClienteFirebase(id) {
+    const clienteRef = database.ref(`clientes/${id}`);
+    clienteRef.remove().then(() => {
+        console.log(`Cliente com ID ${id} removido.`);
+    }).catch((error) => {
+        console.error("Erro ao remover cliente:", error);
+>>>>>>> Stashed changes
     });
 }
 
