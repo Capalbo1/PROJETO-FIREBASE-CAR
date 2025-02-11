@@ -77,7 +77,7 @@ form {
 }
 
 /* Estilos para dispositivos menores */
-@media (max-width: 768px) {
+@media (max-width: 934px) {
     .clients-table, .clients-table thead, .clients-table tbody, .clients-table th, .clients-table td, .clients-table tr {
         display: block; /* Transformar tudo em bloco */
     }
