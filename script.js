@@ -27,9 +27,19 @@ const inputNome = document.querySelector('#nome');
 const inputCarro = document.querySelector('#carro');
 const inputPlaca = document.querySelector('#placa');
 const inputQuilometragem = document.querySelector('#quilometragem');
+const inputValor = document.querySelector('#valor');
+const inputServico = document.querySelector('#servico');
 const inputObservacao = document.querySelector('#observacao');
 const btnTarefa = document.querySelector('.btn-submit');
 const tarefas = document.querySelector('.clients-table tbody');
+
+// Função para formatar o valor em Reais (R$)
+function formatarValor(valor) {
+    return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(valor);
+}
 
 // Limpa os inputs após adicionar
 function limpaInputs() {
@@ -37,6 +47,8 @@ function limpaInputs() {
     inputCarro.value = '';
     inputPlaca.value = '';
     inputQuilometragem.value = '';
+    inputValor.value = '';
+    inputServico.value = '';
     inputObservacao.value = '';
     inputNome.focus();
 }
@@ -44,7 +56,6 @@ function limpaInputs() {
 // Adiciona cliente com ID sequencial
 function criaClienteFirebase(cliente) {
     const clientesRef = database.ref('clientes'); // Referência ao nó "clientes"
-<<<<<<< Updated upstream
 
     // Busca o maior ID existente
     clientesRef.orderByKey().limitToLast(1).once('value', (snapshot) => {
@@ -57,42 +68,18 @@ function criaClienteFirebase(cliente) {
             }
         });
 
+        // Adiciona a data e hora do cadastro como log
+        cliente.dataCadastro = new Date().toLocaleString('pt-BR');
+
         // Salva o cliente com o novo ID
         clientesRef.child(novoId).set(cliente);
         alert(`Cliente adicionado com sucesso! ID: ${novoId}`);
         limpaInputs();
-=======
-    const novoCliente = clientesRef.push(); // Gera um ID único
-    novoCliente.set(cliente).then(() => {
-        console.log("Cliente adicionado com sucesso:", cliente);
-    }).catch((error) => {
-        console.error("Erro ao adicionar cliente:", error);
-    });
-}
-
-// Atualiza cliente no Firebase
-function atualizaClienteFirebase(id, clienteAtualizado) {
-    const clienteRef = database.ref(`clientes/${id}`); // Referência ao cliente pelo ID
-    clienteRef.update(clienteAtualizado).then(() => {
-        console.log("Cliente atualizado:", clienteAtualizado);
-    }).catch((error) => {
-        console.error("Erro ao atualizar cliente:", error);
-    });
-}
-
-// Remove cliente do Firebase
-function apagaClienteFirebase(id) {
-    const clienteRef = database.ref(`clientes/${id}`);
-    clienteRef.remove().then(() => {
-        console.log(`Cliente com ID ${id} removido.`);
-    }).catch((error) => {
-        console.error("Erro ao remover cliente:", error);
->>>>>>> Stashed changes
     });
 }
 
 // Renderiza cliente na tabela
-function criaTarefa(nome, carro, placa, quilometragem, observacao, id) {
+function criaTarefa(nome, carro, placa, quilometragem, valor, servico, observacao, dataCadastro, id) {
     const tr = document.createElement('tr');
     tr.dataset.id = id; // Define o ID no dataset da linha
     tr.innerHTML = `
@@ -101,7 +88,10 @@ function criaTarefa(nome, carro, placa, quilometragem, observacao, id) {
         <td>${carro}</td>
         <td>${placa}</td>
         <td>${quilometragem}</td>
+        <td>${formatarValor(valor)}</td>
+        <td>${servico}</td>
         <td>${observacao}</td>
+        <td>${dataCadastro}</td>
         <td>
             <button class="editar">Editar</button>
             <button class="apagar">Apagar</button>
@@ -118,14 +108,24 @@ function carregaClientesFirebase() {
         snapshot.forEach((childSnapshot) => {
             const cliente = childSnapshot.val();
             const id = childSnapshot.key; // O ID agora será sequencial
-            criaTarefa(cliente.nome, cliente.carro, cliente.placa, cliente.quilometragem, cliente.observacao, id);
+            criaTarefa(
+                cliente.nome,
+                cliente.carro,
+                cliente.placa,
+                cliente.quilometragem,
+                cliente.valor,
+                cliente.servico,
+                cliente.observacao,
+                cliente.dataCadastro,
+                id
+            );
         });
     });
 }
 
 // Adiciona cliente ao clicar no botão
 btnTarefa.addEventListener('click', function () {
-    if (!inputNome.value || !inputCarro.value || !inputPlaca.value || !inputQuilometragem.value || !inputObservacao.value) {
+    if (!inputNome.value || !inputCarro.value || !inputPlaca.value || !inputQuilometragem.value || !inputValor.value || !inputServico.value || !inputObservacao.value) {
         alert("Por favor, preencha todos os campos.");
         return;
     }
@@ -135,6 +135,8 @@ btnTarefa.addEventListener('click', function () {
         carro: inputCarro.value,
         placa: inputPlaca.value,
         quilometragem: inputQuilometragem.value,
+        valor: parseFloat(inputValor.value.replace(/\D/g, '')) / 100, // Converte para número
+        servico: inputServico.value,
         observacao: inputObservacao.value
     };
 
@@ -152,7 +154,9 @@ document.addEventListener('click', function (e) {
         inputCarro.value = tdValores[2].innerText;
         inputPlaca.value = tdValores[3].innerText;
         inputQuilometragem.value = tdValores[4].innerText;
-        inputObservacao.value = tdValores[5].innerText;
+        inputValor.value = tdValores[5].innerText.replace(/[^\d,]/g, '').replace(',', '.'); // Formata para edição
+        inputServico.value = tdValores[6].innerText;
+        inputObservacao.value = tdValores[7].innerText;
 
         apagaClienteFirebase(id); // Remove enquanto edita
     } else if (e.target.classList.contains('apagar')) {

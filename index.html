@@ -34,6 +34,22 @@
                         <td><input type="number" id="quilometragem" class="input-field"></td>
                     </tr>
                     <tr>
+                        <td><label for="valor">Valor:</label></td>
+                        <td><input type="text" id="valor" class="input-field" placeholder="R$ 0,00" oninput="formatarValorInput(this)"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="servico">Serviço:</label></td>
+                        <td>
+                            <select id="servico" class="input-field">
+                                <option value="Troca de Óleo">Troca de Óleo</option>
+                                <option value="Revisão">Revisão</option>
+                                <option value="Alinhamento">Alinhamento</option>
+                                <option value="Balanceamento">Balanceamento</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <td><label for="observacao">Observação:</label></td>
                         <td><input type="text" id="observacao" class="input-field"></td>
                     </tr>
@@ -52,30 +68,25 @@
                             <th>Carro</th>
                             <th>Placa</th>
                             <th>Quilometragem</th>
+                            <th>Valor</th>
+                            <th>Serviço</th>
                             <th>Observação</th>
+                            <th>Data/Hora</th>
                             <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Exemplo de linha (será preenchida dinamicamente pelo JavaScript) -->
                         <tr>
                             <td data-label="ID">1</td>
                             <td data-label="Nome">João Silva</td>
                             <td data-label="Carro">Fiat Uno</td>
                             <td data-label="Placa">ABC-1234</td>
                             <td data-label="Quilometragem">120000</td>
+                            <td data-label="Valor">R$ 250,00</td>
+                            <td data-label="Serviço">Revisão</td>
                             <td data-label="Observação">Revisão completa</td>
-                            <td data-label="Ação">
-                                <button class="editar">Editar</button>
-                                <button class="apagar">Apagar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-label="ID">2</td>
-                            <td data-label="Nome">Maria Souza</td>
-                            <td data-label="Carro">Toyota Corolla</td>
-                            <td data-label="Placa">XYZ-5678</td>
-                            <td data-label="Quilometragem">80000</td>
-                            <td data-label="Observação">Troca de óleo</td>
+                            <td data-label="Data/Hora">01/01/2023 10:00</td>
                             <td data-label="Ação">
                                 <button class="editar">Editar</button>
                                 <button class="apagar">Apagar</button>
@@ -93,5 +104,20 @@
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
     <!-- Script principal -->
     <script src="script.js"></script>
+    <!-- Função para formatar o valor em Reais -->
+    <script>
+        function formatarValorInput(input) {
+            // Remove tudo que não é número
+            let valor = input.value.replace(/\D/g, '');
+
+            // Converte para centavos
+            valor = (Number(valor) / 100).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+
+            input.value = valor;
+        }
+    </script>
 </body>
 </html>
