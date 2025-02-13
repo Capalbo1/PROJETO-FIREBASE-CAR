@@ -13,14 +13,34 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Teste de conexão ao Firebase
+// Verifica o estado da conexão
 database.ref('.info/connected').on('value', (snapshot) => {
     if (snapshot.val() === true) {
         console.log("Conectado ao Firebase");
     } else {
-        console.error("Não foi possível conectar ao Firebase");
+        console.error("Conexão com o Firebase perdida.");
+        // Tenta reconectar após 5 segundos
+        setTimeout(() => {
+            console.log("Tentando reconectar ao Firebase...");
+            verificarConexao();
+        }, 5000);
     }
 });
+
+// Função para verificar a conexão
+function verificarConexao() {
+    database.ref('.info/connected').once('value')
+        .then((snapshot) => {
+            if (snapshot.val() === true) {
+                console.log("Reconectado ao Firebase.");
+            } else {
+                console.error("Ainda não conectado ao Firebase.");
+            }
+        })
+        .catch((error) => {
+            console.error("Erro ao verificar conexão: ", error);
+        });
+}
 
 // Seleciona elementos do DOM
 const inputNome = document.querySelector('#nome');
@@ -55,26 +75,37 @@ function limpaInputs() {
 
 // Adiciona cliente com ID sequencial
 function criaClienteFirebase(cliente) {
-    const clientesRef = database.ref('clientes'); // Referência ao nó "clientes"
+    const clientesRef = database.ref('clientes');
+    const novoIdRef = database.ref('ultimoId'); // Referência para armazenar o último ID usado
 
-    // Busca o maior ID existente
-    clientesRef.orderByKey().limitToLast(1).once('value', (snapshot) => {
-        let novoId = 1; // Valor inicial caso o banco esteja vazio
+    // Usamos uma transação para garantir que o ID seja único e sequencial
+    novoIdRef.transaction((ultimoId) => {
+        if (ultimoId === null) {
+            // Se não houver último ID, começamos com 1
+            return 1;
+        } else {
+            // Incrementa o último ID
+            return ultimoId + 1;
+        }
+    }, (error, committed, snapshot) => {
+        if (error) {
+            console.error("Erro ao gerar novo ID: ", error);
+            alert("Erro ao adicionar cliente. Tente novamente.");
+        } else if (committed) {
+            const novoId = snapshot.val(); // Novo ID gerado
+            cliente.dataCadastro = new Date().toLocaleString('pt-BR'); // Adiciona a data de cadastro
 
-        snapshot.forEach((childSnapshot) => {
-            const maiorIdAtual = parseInt(childSnapshot.key, 10); // Converte para número
-            if (!isNaN(maiorIdAtual)) {
-                novoId = maiorIdAtual + 1; // Incrementa o ID
-            }
-        });
-
-        // Adiciona a data e hora do cadastro como log
-        cliente.dataCadastro = new Date().toLocaleString('pt-BR');
-
-        // Salva o cliente com o novo ID
-        clientesRef.child(novoId).set(cliente);
-        alert(`Cliente adicionado com sucesso! ID: ${novoId}`);
-        limpaInputs();
+            // Salva o cliente com o novo ID
+            clientesRef.child(novoId).set(cliente)
+                .then(() => {
+                    alert(`Cliente adicionado com sucesso! ID: ${novoId}`);
+                    limpaInputs();
+                })
+                .catch((error) => {
+                    console.error("Erro ao salvar cliente: ", error);
+                    alert("Erro ao salvar cliente. Tente novamente.");
+                });
+        }
     });
 }
 
@@ -170,7 +201,13 @@ document.addEventListener('click', function (e) {
 // Remove cliente do Firebase
 function apagaClienteFirebase(id) {
     const clienteRef = database.ref(`clientes/${id}`);
-    clienteRef.remove(); // Remove do banco de dados
+    clienteRef.remove() // Remove do banco de dados
+        .then(() => {
+            console.log("Cliente removido com sucesso.");
+        })
+        .catch((error) => {
+            console.error("Erro ao remover cliente: ", error);
+        });
 }
 
 // Carrega clientes ao abrir a página
