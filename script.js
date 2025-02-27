@@ -2,45 +2,35 @@
 const firebaseConfig = {
     apiKey: "AIzaSyC3U_lv4GMuWVff5_R6zzeKUKx865oAgME",
     authDomain: "msoares-abcb9.firebaseapp.com",
-    databaseURL: "https://msoares-abcb9-default-rtdb.firebaseio.com/",
+    databaseURL: "https://msoares-abcb9-default-rtdb.firebaseio.com",
     projectId: "msoares-abcb9",
     storageBucket: "msoares-abcb9.appspot.com",
     messagingSenderId: "785462040112",
     appId: "1:785462040112:web:54ae728a8c4e4d2ae17ff5"
 };
 
-// Inicializar Firebase
-firebase.initializeApp(firebaseConfig);
+// Inicializa o Firebase
+const app = firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Verifica o estado da conexão
-database.ref('.info/connected').on('value', (snapshot) => {
-    if (snapshot.val() === true) {
-        console.log("Conectado ao Firebase");
-    } else {
-        console.error("Conexão com o Firebase perdida.");
-        // Tenta reconectar após 5 segundos
-        setTimeout(() => {
-            console.log("Tentando reconectar ao Firebase...");
-            verificarConexao();
-        }, 5000);
+// Verifica se o usuário está logado
+firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+        window.location.href = 'login.html'; // Redireciona para o login
     }
 });
 
-// Função para verificar a conexão
-function verificarConexao() {
-    database.ref('.info/connected').once('value')
-        .then((snapshot) => {
-            if (snapshot.val() === true) {
-                console.log("Reconectado ao Firebase.");
-            } else {
-                console.error("Ainda não conectado ao Firebase.");
-            }
-        })
-        .catch((error) => {
-            console.error("Erro ao verificar conexão: ", error);
-        });
-}
+// Lógica de logout
+document.getElementById('logout-button').addEventListener('click', () => {
+    firebase.auth().signOut().then(() => {
+        window.location.href = 'login.html';
+    }).catch((error) => {
+        alert(error.message);
+    });
+});
+
+// Lógica de cadastro e listagem de clientes (já fornecida por você)
+// ... (use o código que você já tem para cadastrar e listar clientes)
 
 // Seleciona elementos do DOM
 const inputNome = document.querySelector('#nome');

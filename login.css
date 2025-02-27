@@ -1,0 +1,210 @@
+:root {
+    --primary-color: #8B0000; /* Vermelho escuro */
+    --secondary-color: #B22222; /* Vermelho mais claro */
+    --background-color: #F5F5F5; /* Cor de fundo clara */
+    --text-color: #333; /* Cor do texto principal */
+    --text-light: #FFF; /* Cor do texto claro */
+    --border-color: #DDD; /* Cor da borda */
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra padrão */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+}
+
+main {
+    width: 90%;
+    max-width: 900px;
+    height: auto; /* Ajustado para auto para melhor responsividade */
+    background-color: var(--text-light);
+    display: flex;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+aside {
+    width: 40%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    color: var(--text-light);
+    text-align: center;
+}
+
+aside h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+aside h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+aside p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+aside .btn-login {
+    padding: 10px 20px;
+    background-color: var(--text-light);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+aside .btn-login:hover {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+}
+
+aside .forgot-password {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: opacity 0.3s ease;
+}
+
+aside .forgot-password:hover {
+    opacity: 0.8;
+}
+
+section {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+section h3 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+section .form-container {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+section input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+section input:focus {
+    border-color: var(--primary-color);
+}
+
+section .btn-register {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+section .btn-register:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Estilos adicionais para o formulário de login */
+#login-form {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#login-form input:focus {
+    border-color: var(--primary-color);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        height: auto;
+    }
+
+    aside, section {
+        width: 100%;
+    }
+
+    aside {
+        padding: 40px 20px;
+    }
+
+    section {
+        padding: 40px 20px;
+    }
+
+    aside h1 {
+        font-size: 2rem;
+    }
+
+    aside h2 {
+        font-size: 1.2rem;
+    }
+
+    section h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Estilos para os artigos dentro do aside */
+aside article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+aside article a {
+    margin-top: 10px;
+}
