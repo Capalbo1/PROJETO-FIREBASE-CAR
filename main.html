@@ -116,5 +116,41 @@
             input.value = valor;
         }
     </script>
+    <script>
+        // Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyC3U_lv4GMuWVff5_R6zzeKUKx865oAgME",
+    authDomain: "msoares-abcb9.firebaseapp.com",
+    databaseURL: "https://msoares-abcb9-default-rtdb.firebaseio.com",
+    projectId: "msoares-abcb9",
+    storageBucket: "msoares-abcb9.appspot.com",
+    messagingSenderId: "785462040112",
+    appId: "1:785462040112:web:54ae728a8c4e4d2ae17ff5"
+};
+
+// Inicializa o Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// Verifica se o usuário está logado
+auth.onAuthStateChanged((user) => {
+    if (!user) {
+        // Se o usuário não estiver logado, redirecione para a index.html
+        window.location.href = 'index.html';
+    } else {
+        // Se o usuário estiver logado, permita o acesso à página
+        console.log('Usuário logado:', user);
+    }
+});
+
+// Função para fazer logout
+document.getElementById('logout-button').addEventListener('click', () => {
+    auth.signOut().then(() => {
+        window.location.href = 'index.html'; // Redireciona para o login após logout
+    }).catch((error) => {
+        console.error('Erro ao fazer logout:', error);
+    });
+});
+    </script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+// Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3U_lv4GMuWVff5_R6zzeKUKx865oAgME",
     authDomain: "msoares-abcb9.firebaseapp.com",
