@@ -1,4 +1,3 @@
-// Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyC3U_lv4GMuWVff5_R6zzeKUKx865oAgME",
     authDomain: "msoares-abcb9.firebaseapp.com",
@@ -12,6 +11,17 @@ const firebaseConfig = {
 // Inicializa o Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+
+// Verifica se o usuário já está logado
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        // Se o usuário já estiver logado, redirecione para a main.html
+        window.location.href = 'main.html';
+    } else {
+        // Se o usuário não estiver logado, permaneça na index.html
+        console.log('Nenhum usuário logado. Faça login.');
+    }
+});
 
 // Lógica de Login
 document.getElementById('login-form').addEventListener('submit', (e) => {
@@ -45,17 +55,4 @@ document.getElementById('register-btn').addEventListener('click', (e) => {
         .catch((error) => {
             alert(error.message); // Exibe o erro em um alerta
         });
-});
-
-// Verifica se o usuário está logado
-auth.onAuthStateChanged((user) => {
-    if (user) {
-        console.log('Usuário logado:', user);
-    } else {
-        console.log('Nenhum usuário logado');
-        // Redireciona para o login caso não esteja autenticado
-        if (window.location.pathname !== '/index.html') {
-            window.location.href = 'index.html';
-        }
-    }
 });
