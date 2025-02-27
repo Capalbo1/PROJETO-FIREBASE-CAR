@@ -1,252 +1,210 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+:root {
+    --primary-color: #8B0000; /* Vermelho escuro */
+    --secondary-color: #B22222; /* Vermelho mais claro */
+    --background-color: #F5F5F5; /* Cor de fundo clara */
+    --text-color: #333; /* Cor do texto principal */
+    --text-light: #FFF; /* Cor do texto claro */
+    --border-color: #DDD; /* Cor da borda */
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra padrão */
+}
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
-header {
-    background-image: url('cars.jpg'); /* Substitua pelo caminho da sua imagem */
-    background-size: cover; /* Faz a imagem cobrir todo o header */
-    background-position: center; /* Centraliza a imagem */
-    height: 300px; /* Ajuste a altura conforme necessário */
-    display: flex; /* Alinha o conteúdo do header */
-    flex-direction: column; /* Mantém o texto abaixo */
-    justify-content: center; /* Centraliza verticalmente */
-    align-items: center; /* Centraliza horizontalmente */
-    position: relative;
-    color: white; /* Deixa o texto branco para contraste */
-}
-
-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Fundo preto com 50% de transparência */
-    z-index: 1; /* Fica atrás do conteúdo */
-}
-
-.logo {
-    max-width: 180px;
-    vertical-align: middle;
-    z-index: 2; /* Mantém o texto acima da transparência */
-}
-
-header h1 {
-    position: relative;
-    z-index: 2; /* Mantém o texto acima da transparência */
-    font-size: 2rem; /* Ajuste o tamanho do texto */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Adiciona sombra no texto */
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
 }
 
 main {
-    padding: 20px;
+    width: 90%;
+    max-width: 900px;
+    height: auto; /* Ajustado para auto para melhor responsividade */
+    background-color: var(--text-light);
+    display: flex;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
 }
 
-.form-section, .list-section {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-h2 {
-    margin-top: 0;
-    color: #333;
-}
-
-form {
+aside {
+    width: 40%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    color: var(--text-light);
+    text-align: center;
 }
 
-/* Configuração padrão da tabela */
-.clients-table {
-    width: 100%;
-    border-collapse: collapse;
+aside h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 
-.clients-table th, .clients-table td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
+aside h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
-/* Estilos para dispositivos menores */
-@media (max-width: 934px) {
-    .clients-table, .clients-table thead, .clients-table tbody, .clients-table th, .clients-table td, .clients-table tr {
-        display: block; /* Transformar tudo em bloco */
-    }
-
-    /* Remove o cabeçalho da tabela */
-    .clients-table thead {
-        display: none;
-    }
-
-    /* Estiliza cada linha de dados */
-    .clients-table tr {
-        margin-bottom: 15px; /* Espaçamento entre os registros */
-        border-bottom: 1px solid #ddd; /* Adiciona uma separação visual */
-        border: 2px solid #333; /* Borda escura ao redor do bloco */
-    }
-
-    /* Exibe os rótulos antes dos valores */
-    .clients-table td {
-        text-align: left;
-        padding-left: 50%; /* Garante espaço para os rótulos */
-        position: relative;
-    }
-
-    /* Estilos para os rótulos das colunas */
-    .clients-table td::before {
-        content: attr(data-label); /* Insere o nome da coluna como rótulo */
-        position: absolute;
-        left: 0;
-        width: 45%; /* Espaço ocupado pelo rótulo */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-weight: bold;
-    }
+aside p {
+    font-size: 0.9rem;
+    opacity: 0.9;
 }
 
-
-.input-field {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-}
-
-.btn-submit {
-    background-color: #000000;
-    color: white;
-    border: none;
+aside .btn-login {
     padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.btn-submit:hover {
-    background-color: #d83108;
-}
-
-.clients-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.clients-table th, .clients-table td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
-.clients-table th {
-    background-color: #f2f2f2;
-}
-
-.clients-table .editar, .clients-table .apagar {
-    padding: 5px 10px;
+    background-color: var(--text-light);
+    color: var(--primary-color);
     border: none;
-    border-radius: 5px;
-    color: white;
+    border-radius: 25px;
+    font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-size: 14px;
-    margin: 0 5px; /* Espaço entre os botões */
 }
 
-.clients-table .editar {
-    background-color: #f0ad4e; /* Cor padrão para o botão de editar */
+aside .btn-login:hover {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
 }
 
-.clients-table .editar:hover {
-    background-color: #ec971f; /* Cor de hover para o botão de editar */
-}
-
-.clients-table .apagar {
-    background-color: #d9534f; /* Cor padrão para o botão de apagar */
-}
-
-.clients-table .apagar:hover {
-    background-color: #ee261f; /* Cor de hover para o botão de apagar */
-}
-div.conatiner{
-    overflow-x: auto;
-}
-
-
-
-
-/* Reset básico para remover margens e paddings padrão */
-body, ul, li, a {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+aside .forgot-password {
+    color: var(--text-light);
     text-decoration: none;
+    font-size: 0.9rem;
+    transition: opacity 0.3s ease;
 }
 
-/* Estilo para o nav */
-nav {
-    background-color: #333; /* Cor de fundo escura */
-    padding: 10px 20px; /* Espaçamento interno */
-    font-family: Arial, sans-serif; /* Fonte */
-    width: 100%; /* Ocupa toda a largura da tela */
-    position: fixed; /* Fixa o nav no topo */
-    top: 0; /* Alinha no topo da tela */
-    left: 0; /* Alinha à esquerda da tela */
-    z-index: 1000; /* Garante que o nav fique acima de outros elementos */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para efeito visual */
+aside .forgot-password:hover {
+    opacity: 0.8;
 }
 
-/* Estilo para a lista não ordenada */
-nav ul {
-    display: flex; /* Layout flexível */
-    justify-content: space-around; /* Distribui os itens igualmente */
-    align-items: center; /* Centraliza verticalmente */
-    max-width: 1200px; /* Largura máxima do conteúdo */
-    margin: 0 auto; /* Centraliza o conteúdo */
+section {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
 }
 
-/* Estilo para os itens da lista */
-nav ul li {
-    margin: 0 10px; /* Espaçamento entre os itens */
+section h3 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
 }
 
-/* Estilo para os links */
-nav ul li a {
-    color: #fff; /* Cor do texto */
-    font-size: 16px; /* Tamanho da fonte */
-    padding: 10px 15px; /* Espaçamento interno */
-    border-radius: 5px; /* Bordas arredondadas */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
+section .form-container {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-/* Efeito hover para os links */
-nav ul li a:hover {
-    background-color: #555; /* Cor de fundo ao passar o mouse */
-    color: #e92b0a; /* Cor do texto ao passar o mouse */
+section input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
-/* Estilo para o link ativo (opcional) */
-nav ul li a.active {
-    background-color: #f71808; /* Cor de fundo para o link ativo */
-    color: #333; /* Cor do texto para o link ativo */
+section input:focus {
+    border-color: var(--primary-color);
 }
 
-/* Responsividade: ajusta o layout para telas menores */
+section .btn-register {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+section .btn-register:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Estilos adicionais para o formulário de login */
+#login-form {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#login-form input:focus {
+    border-color: var(--primary-color);
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
-    nav ul {
-        flex-direction: column; /* Coloca os itens em coluna */
-        align-items: flex-start; /* Alinha os itens à esquerda */
+    main {
+        flex-direction: column;
+        height: auto;
     }
 
-    nav ul li {
-        margin: 10px 0; /* Espaçamento entre os itens */
+    aside, section {
+        width: 100%;
     }
-} 
+
+    aside {
+        padding: 40px 20px;
+    }
+
+    section {
+        padding: 40px 20px;
+    }
+
+    aside h1 {
+        font-size: 2rem;
+    }
+
+    aside h2 {
+        font-size: 1.2rem;
+    }
+
+    section h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Estilos para os artigos dentro do aside */
+aside article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+aside article a {
+    margin-top: 10px;
+}

@@ -1,120 +1,51 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OFICINA MECÂNICA SOARES</title>
+    <title>MECÂNICA SOARES</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="CAR.png" type="image/x-icon">
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<!-- Firebase Authentication -->
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+
 </head>
 <body>
-    <header>
-        <img src="logo2.png" alt="Logo da Empresa" class="logo">
-        <h1>OFICINA MECÂNICA SOARES</h1>
-        <button id="logout-button">Sair</button> <!-- Botão de logout -->
-    </header>
-    <nav>
-        <!-- Ícone do menu hamburger -->
-        <label for="menu-toggle" class="menu-icon">&#9776;</label>
-        <!-- Lista de links -->
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Clientes</a></li>
-            <li><a href="#">Relatórios</a></li>
-            <li><a href="#">Fotos</a></li>
-        </ul>
-    </nav>
     <main>
-        <!-- Seção de cadastro de clientes -->
-        <section class="form-section">
-            <h2>Cadastro de Clientes</h2>
-            <form id="cadastro-form">
-                <table>
-                    <tr>
-                        <td><label for="nome">Nome:</label></td>
-                        <td><input type="text" id="nome" class="input-field"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="carro">Carro:</label></td>
-                        <td><input type="text" id="carro" class="input-field"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="placa">Placa:</label></td>
-                        <td><input type="text" id="placa" class="input-field"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="quilometragem">Quilometragem:</label></td>
-                        <td><input type="number" id="quilometragem" class="input-field"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="valor">Valor:</label></td>
-                        <td><input type="text" id="valor" class="input-field" placeholder="R$ 0,00" oninput="formatarValorInput(this)"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="servico">Serviço:</label></td>
-                        <td>
-                            <select id="servico" class="input-field">
-                                <option value="Troca de Óleo">Troca de Óleo</option>
-                                <option value="Revisão">Revisão</option>
-                                <option value="Outro">Outro</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="observacao">Observação:</label></td>
-                        <td><input type="text" id="observacao" class="input-field"></td>
-                    </tr>
-                </table>
-                <button type="button" class="btn-submit">Adicionar Cliente</button>
-            </form>
-        </section>
-        <!-- Seção de listagem de clientes -->
-        <section class="list-section">
-            <h2>Clientes Cadastrados</h2>
-            <div class="container">
-                <table class="clients-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Carro</th>
-                            <th>Placa</th>
-                            <th>Quilometragem</th>
-                            <th>Valor</th>
-                            <th>Serviço</th>
-                            <th>Observação</th>
-                            <th>Data/Hora</th>
-                            <th>Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Linhas serão preenchidas dinamicamente pelo JavaScript -->
-                    </tbody>
-                </table>
-            </div>
+        <aside>
+            <article>
+                <h1>SOARES</h1>
+            </article>
+            <article>
+                <h2>Bem-vindo de volta!</h2>
+                <p>Acesse sua conta agora mesmo</p>
+            </article>
+            <article>
+                <!-- Formulário de Login -->
+                <form id="login-form">
+                    <input type="email" id="email" placeholder="E-mail" required>
+                    <input type="password" id="password" placeholder="Senha" required>
+                    <button type="submit" class="btn-login">Entrar</button>
+                </form>
+                <a href="#" class="forgot-password">Esqueci minha senha</a>
+            </article>
+        </aside>
+
+        <section>
+            <article>
+                <h3>Crie sua Conta</h3>
+            </article>
+            <article class="form-container">
+                <input type="text" id="nome" placeholder="Nome completo">
+                <input type="email" id="email-register" placeholder="E-mail">
+                <input type="password" id="password-register" placeholder="Senha">
+            </article>
+            <article>
+                <button class="btn-register" id="register-btn">Registrar</button>
+            </article>
         </section>
     </main>
 
-    <!-- Script principal -->
-    <script src="script.js"></script>
-    <!-- Função para formatar o valor em Reais -->
-    <script>
-        function formatarValorInput(input) {
-            // Remove tudo que não é número
-            let valor = input.value.replace(/\D/g, '');
-
-            // Converte para centavos
-            valor = (Number(valor) / 100).toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            });
-
-            input.value = valor;
-        }
-    </script>
+    <script src="auth.js"></script>
 </body>
 </html>

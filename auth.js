@@ -22,7 +22,7 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
     auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             console.log('Usuário logado:', userCredential.user);
-            window.location.href = 'index.html'; // Redireciona para a página principal
+            window.location.href = 'main.html'; // Redireciona para a página principal
         })
         .catch((error) => {
             alert(error.message); // Exibe o erro em um alerta
@@ -40,7 +40,7 @@ document.getElementById('register-btn').addEventListener('click', (e) => {
         .then((userCredential) => {
             console.log('Usuário registrado:', userCredential.user);
             alert('Cadastro realizado com sucesso!');
-            window.location.href = 'index.html'; // Redireciona para a página principal
+            window.location.href = 'main.html'; // Redireciona para a página principal
         })
         .catch((error) => {
             alert(error.message); // Exibe o erro em um alerta
@@ -54,8 +54,8 @@ auth.onAuthStateChanged((user) => {
     } else {
         console.log('Nenhum usuário logado');
         // Redireciona para o login caso não esteja autenticado
-        if (window.location.pathname !== '/login.html') {
-            window.location.href = 'login.html';
+        if (window.location.pathname !== '/index.html') {
+            window.location.href = 'index.html';
         }
     }
 });

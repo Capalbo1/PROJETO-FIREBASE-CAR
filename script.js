@@ -16,14 +16,14 @@ const database = firebase.database();
 // Verifica se o usuário está logado
 firebase.auth().onAuthStateChanged((user) => {
     if (!user) {
-        window.location.href = 'login.html'; // Redireciona para o login
+        window.location.href = 'index.html'; // Redireciona para o login
     }
 });
 
 // Lógica de logout
 document.getElementById('logout-button').addEventListener('click', () => {
     firebase.auth().signOut().then(() => {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     }).catch((error) => {
         alert(error.message);
     });
